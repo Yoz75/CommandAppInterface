@@ -39,3 +39,5 @@ Also CAI contains built-in commands:
 You can run one CAI inside other. In this case when you type quit, you will exit from internal CAI and continue working in external CAI:
 ![изображение](https://github.com/user-attachments/assets/d8e47820-c742-4595-a31e-b49052516191)
 
+## Native AOT:
+CAI uses [Spectre.Console]([http://a.com](https://github.com/spectreconsole/spectre.console))  (Not Spectre.Console.Cli!!!), as stated in https://spectreconsole.net/best-practices, Spectre.Console supports Native AOT.

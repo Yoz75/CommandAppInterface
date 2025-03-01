@@ -15,6 +15,7 @@ class CMDExample : IExample
         cmdInterface.AddCommand(new Command("dir", "show current working directory", ShowCurrentDirectory, "\"dir\""));
         cmdInterface.AddCommand<string>(new Command<string>("cd", "change directory", ChangeDirectory, "\"cd [relative path/full path/..]\""));
         cmdInterface.AddCommand(new Command("list", "list files and directories inside current", ListInsideCurrent, "\"list\""));
+        cmdInterface.AddCommand<string>(new Command<string>("mkdir", "make a new directory", MakeDirectory, "\"mkdir \"[name]\"\""));
 
         cmdInterface.Start();
     }
@@ -64,5 +65,11 @@ class CMDExample : IExample
         {
             AnsiConsole.WriteLine(Path.GetFileName(file));
         }
+    }
+
+    private void MakeDirectory(string name)
+    {
+        Directory.CreateDirectory(Path.Combine(CurrentDirectory, name));
+        AnsiConsole.MarkupLineInterpolated($"[green]made {name} [/]");
     }
 }

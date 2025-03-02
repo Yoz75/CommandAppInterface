@@ -15,7 +15,7 @@ public class AppInterface
     private List<IDescribable> CommandsAsDescribable = new();
     private Dictionary<string, Action<string>> CommandCallers = new();
 
-    //Yeah, I use build number as minor minor version😎😎😎
+    //Yeah, I use build number as patch version😎😎😎
     private readonly Version CAIVersion = new(1, 0, 0);
 
     private bool IsEnded = false;

@@ -1,3 +1,4 @@
+NuGet: https://www.nuget.org/packages/CommandAppInterface/
 # Command App Interface
 This is a library for easy command interface making (actualy I used something like this in my other projects, but I tired of always typing if/else):<br>
 ![изображение](https://github.com/user-attachments/assets/133b3b77-6dfe-4be3-999d-99cb4f648d72)

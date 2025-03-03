@@ -16,7 +16,7 @@ public class AppInterface
     private Dictionary<string, Action<string>> CommandCallers = new();
 
     //Yeah, I use build number as patch version😎😎😎
-    private readonly Version CAIVersion = new(1, 0, 0);
+    private readonly Version CAIVersion = new(1, 0, 1);
 
     private bool IsEnded = false;
 
@@ -38,7 +38,7 @@ public class AppInterface
     /// <param name="caiName">current CAI name, use if you want to split the interface into several (just for beauty)</param>
     /// /// <param name="isCatchExceptions">if true, CAU will catch exceptions 
     /// and write their messages on console</param>
-    public AppInterface(string caiName = null, bool isCatchExceptions = false)
+    public AppInterface(string caiName, bool isCatchExceptions = false)
     {
         Name = caiName;
         IsCatchExceptions = isCatchExceptions;

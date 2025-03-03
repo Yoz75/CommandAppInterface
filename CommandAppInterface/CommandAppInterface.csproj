@@ -11,9 +11,10 @@
     <FileVersion>1.0.0</FileVersion>
     <Copyright>copyright by yoz75</Copyright>
     <Description>Small library for easy command interface creating</Description>
-    <PackageProjectUrl>https://github.com/Yoz75/CommandAppInterface</PackageProjectUrl>
+    <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/Yoz75/CommandAppInterface</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

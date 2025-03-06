@@ -6,7 +6,7 @@ namespace CAI.Examples
     {
         public void Run()
         {
-            AppInterface clearInterface = new("clear interface", isCatchExceptions: true, InterfaceStyles.None);
+            AppInterface clearInterface = new("clear interface", isCatchExceptions: true, style: InterfaceStyles.None);
             clearInterface.AddCommand(new Command("foo", "just nothing", () => { AnsiConsole.WriteLine("foo!"); }, "\"foo\""));
             clearInterface.Start();
         }

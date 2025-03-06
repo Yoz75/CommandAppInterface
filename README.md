@@ -40,5 +40,19 @@ Also CAI contains built-in commands:
 You can run one CAI inside other. In this case when you type quit, you will exit from internal CAI and continue working in external CAI:
 ![изображение](https://github.com/user-attachments/assets/d8e47820-c742-4595-a31e-b49052516191)
 
+## Styles
+CAI supports several styles:
+* None -- no welcom message and no command prompt
+* WriteCommandPromt -- only command prompt
+* WelcomeMessage -- only welcome message
+* WelcomeAndCommandPrompt -- both command prompt and welcome message
+
+this way you can make clear interface without welcome message or blue command prompt:
+```cs
+            AppInterface clearInterface = new("clear interface", isCatchExceptions: true, style: InterfaceStyles.None);
+```
+"style" parameter isn`t required, it is set to Styles.WelcomeAndCommandPrompt by default.
+Styles are presented enum with Flags attribute, so you can actually use WelcomeMessage | WriteCommandPromt instead of WelcomeAndCommandPrompt1.
+
 ## Native AOT:
 CAI uses [Spectre.Console](https://github.com/spectreconsole/spectre.console/)  (Not Spectre.Console.Cli!!!), as stated in https://spectreconsole.net/best-practices, Spectre.Console supports Native AOT.

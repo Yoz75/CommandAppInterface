@@ -7,5 +7,5 @@ namespace CAI;
     None = 0,
     WriteCommandPrompt = 1,
     WelcomeMessage = 2,
-    WelcomAndCommandPrompt = WriteCommandPrompt | WelcomeMessage
+    WelcomeAndCommandPrompt = WriteCommandPrompt | WelcomeMessage
 }

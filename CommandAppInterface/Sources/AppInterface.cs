@@ -33,7 +33,7 @@ public class AppInterface
 
     private string Name;
 
-    private const InterfaceStyles StandardStyle = InterfaceStyles.WelcomAndCommandPrompt;
+    private const InterfaceStyles StandardStyle = InterfaceStyles.WelcomeAndCommandPrompt;
 
     private InterfaceStyles Style;
 

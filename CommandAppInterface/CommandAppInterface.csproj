@@ -7,14 +7,14 @@
 	<Title>CommandAppInterface</Title>
     <Company>$(Authors)</Company>
     <Authors>yoz75</Authors>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
     <Copyright>copyright by yoz75</Copyright>
     <Description>Small library for easy command interface creating</Description>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/Yoz75/CommandAppInterface</RepositoryUrl>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

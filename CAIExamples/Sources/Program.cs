@@ -8,6 +8,7 @@ namespace CAI.Examples
         private const string MathExample = "math";
         private const string ExceptionExample = "exception";
         private const string CMDExample = "cmd";
+        private const string NoStyleExample = "purity";
         private static void Main(string[] args)
         {
             AppInterface exampleChoiceInterface = new(
@@ -16,7 +17,7 @@ namespace CAI.Examples
 
             exampleChoiceInterface.AddCommand<string>(
                 new Command<string>("run", "run an example",(exampleName) => 
-                { AnsiConsole.Clear(); Run(exampleName); }, $"\"run [{MathExample}/{ExceptionExample}/{CMDExample}]\"")
+                { AnsiConsole.Clear(); Run(exampleName); }, $"\"run [{MathExample}/{ExceptionExample}/{CMDExample}/{NoStyleExample}]\"")
                 );
 
             exampleChoiceInterface.Start();
@@ -35,6 +36,9 @@ namespace CAI.Examples
                     break;
                 case CMDExample:
                     example = new CMDExample();
+                    break;
+                case NoStyleExample:
+                    example = new NoStyleExample();
                     break;
                 default:
                     break;

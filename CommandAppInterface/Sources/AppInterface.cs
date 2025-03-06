@@ -25,6 +25,7 @@ public class AppInterface
         "[aqua]CAI uses Spectre.Console: Copyright (c) 2020 Patrik Svensson, Phil Scott, Nils Andresen[/]";
     private const string UnknownCommandErrorMessage = "[red]Unknown command! Type help fore more info![/]\n";
     private const string PanicMessage = "[red]Panic! App has thrown an exception:[/]\n";
+    private const string PanicPrompt = "[underline red]Panic![/]\n[grey]Something went REALLY wrong! Continue work or exit?[/]";
     private const string WriteNextCommandMessage = "[dodgerblue1]Write next command:[/]";
     #endregion
 
@@ -32,46 +33,66 @@ public class AppInterface
 
     private string Name;
 
+    private const InterfaceStyles StandardStyle = InterfaceStyles.WelcomAndCommandPrompt;
+
+    private InterfaceStyles Style;
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="caiName">current CAI name, use if you want to split the interface into several (just for beauty)</param>
     /// /// <param name="isCatchExceptions">if true, CAU will catch exceptions 
     /// and write their messages on console</param>
-    public AppInterface(string caiName, bool isCatchExceptions = false)
+    public AppInterface(string caiName, bool isCatchExceptions = false, InterfaceStyles style = StandardStyle)
     {
         Name = caiName;
         IsCatchExceptions = isCatchExceptions;
+        Style = style;
 
         AddCommand(new Command("help", "write the All-Commands-Table", WriteCommands, "\"help\""));
         AddCommand(new Command("clear", "clear screen", AnsiConsole.Clear, "\"clear\""));
         AddCommand(new Command("quit", "quit CAI", Quit, "\"quit\""));
-        AddCommand(new Command("name", "get current CAI name", () => { AnsiConsole.WriteLine(Name); }, "\"name\""));
+        AddCommand(new Command("name", "get current CAI name", () =>
+        {
+            if(!string.IsNullOrEmpty(Name))
+            {
+                AnsiConsole.WriteLine(Name);
+            }
+        }, "\"name\""));
     }
 
     public void Start()
     {
         string welcomeCAIBanner = $"[lime]Command App Interface ver{CAIVersion.ToString()}[/]";
 
-        var welcomeRule = new Rule(welcomeCAIBanner);
-        var spectreText = new Markup(SpectreConsoleCopyright);
-        spectreText.Justification = Justify.Center;
+        if((Style & InterfaceStyles.WelcomeMessage) != 0)
+        {
 
-        AnsiConsole.Write(welcomeRule);
-        AnsiConsole.Write(spectreText);
-        AnsiConsole.WriteLine();
+            var welcomeRule = new Rule(welcomeCAIBanner);
+            var spectreText = new Markup(SpectreConsoleCopyright);
+            spectreText.Justification = Justify.Center;
 
-        if(!string.IsNullOrEmpty(Name))
-            AnsiConsole.Write(
-                Markup.FromInterpolated(
-                    $"[aqua]Started Command App Interface named {Name}[/]\n").Justify(Justify.Center)
-                );
+            AnsiConsole.Write(welcomeRule);
+            AnsiConsole.Write(spectreText);
+            AnsiConsole.WriteLine();
+
+            if(!string.IsNullOrEmpty(Name))
+                AnsiConsole.Write(
+                    Markup.FromInterpolated(
+                        $"[aqua]Started Command App Interface named {Name}[/]\n").Justify(Justify.Center)
+                    );
+        }
 
         while(!IsEnded)
         {
             try
             {
-                string rawCommand = AnsiConsole.Ask<string>(WriteNextCommandMessage);
+                string nextCommandPrompt = "";
+                if((Style & InterfaceStyles.WriteCommandPrompt) != 0)
+                {
+                    nextCommandPrompt = WriteNextCommandMessage;
+                }
+                string rawCommand = AnsiConsole.Ask<string>(nextCommandPrompt);
 
                 if(string.IsNullOrEmpty(rawCommand) || !CommandCallers.ContainsKey(GetCommandName(rawCommand)))
                 {
@@ -81,7 +102,7 @@ public class AppInterface
 
                 CommandCallers[GetCommandName(rawCommand)](rawCommand);
             }
-            catch(Exception ex) when (IsCatchExceptions)
+            catch(Exception ex) when(IsCatchExceptions)
             {
                 AnsiConsole.Write(new Markup(PanicMessage));
                 AnsiConsole.MarkupLineInterpolated($"[darkred_1]{ex.Message}[/]");
@@ -91,11 +112,11 @@ public class AppInterface
                 const string exitAnswer = "exit";
                 const string continueAnswer = "continue";
 
-                var exitPrompt = new SelectionPrompt<string>();
-                exitPrompt.Title = "[underline red]Panic![/]\n[grey]Something went REALLY wrong! Continue work or exit?[/]";
-                exitPrompt.AddChoices([exitAnswer, continueAnswer]);
+                var panicPrompt = new SelectionPrompt<string>();
+                panicPrompt.Title = PanicPrompt;
+                panicPrompt.AddChoices([exitAnswer, continueAnswer]);
 
-                var answer = AnsiConsole.Prompt(exitPrompt);
+                var answer = AnsiConsole.Prompt(panicPrompt);
 
                 switch(answer)
                 {
@@ -240,8 +261,8 @@ public class AppInterface
                     isAppendingRawString = !isAppendingRawString;
                     continue;
                 }
-                
-                if(!isAppendingRawString && @char == ' ' )
+
+                if(!isAppendingRawString && @char == ' ')
                 {
                     substrings.Add(sb.ToString());
                     sb.Clear();

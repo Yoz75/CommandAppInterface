@@ -9,6 +9,7 @@ namespace CAI.Examples
         private const string ExceptionExample = "exception";
         private const string CMDExample = "cmd";
         private const string NoStyleExample = "purity";
+        private const string NoNameAndCopyrightExample = "purity?";
         private static void Main(string[] args)
         {
             AppInterface exampleChoiceInterface = new(
@@ -39,6 +40,9 @@ namespace CAI.Examples
                     break;
                 case NoStyleExample:
                     example = new NoStyleExample();
+                    break;
+                case NoNameAndCopyrightExample:
+                    example = new NoNameAndCopyrightExample();
                     break;
                 default:
                     break;

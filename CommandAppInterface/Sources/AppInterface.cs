@@ -33,7 +33,7 @@ public class AppInterface
 
     private string Name;
 
-    private const InterfaceStyles StandardStyle = InterfaceStyles.WelcomeAndCommandPrompt;
+    private const InterfaceStyles StandardStyle = InterfaceStyles.Full;
 
     private InterfaceStyles Style;
 
@@ -69,13 +69,17 @@ public class AppInterface
         {
 
             var welcomeRule = new Rule(welcomeCAIBanner);
-            var spectreText = new Markup(SpectreConsoleCopyright);
-            spectreText.Justification = Justify.Center;
 
             AnsiConsole.Write(welcomeRule);
+        }
+        if((Style & InterfaceStyles.CopyrightMessage) != 0)
+        {
+            var spectreText = new Markup(SpectreConsoleCopyright).Justify(Justify.Center);
             AnsiConsole.Write(spectreText);
             AnsiConsole.WriteLine();
-
+        }
+        if((Style & InterfaceStyles.CAIName) != 0)
+        {
             if(!string.IsNullOrEmpty(Name))
                 AnsiConsole.Write(
                     Markup.FromInterpolated(
@@ -221,6 +225,55 @@ public class AppInterface
         };
     }
 
+    /// <summary>
+    /// Add a new command
+    /// </summary>
+    public void AddCommand<Argument1, Argument2, Argument3, Argument4, Argument5>(
+        Command<Argument1, Argument2, Argument3, Argument4, Argument5> command)
+        where Argument1 : IParsable<Argument1>
+        where Argument2 : IParsable<Argument2>
+        where Argument3 : IParsable<Argument3>
+        where Argument4 : IParsable<Argument4>
+        where Argument5 : IParsable<Argument5>
+    {
+        CommandsAsDescribable.Add(command);
+        CommandCallers[command.GetName()] = (rawCommand) =>
+        {
+            command.Action(
+                ParseArgument<Argument1>(rawCommand, 0),
+                ParseArgument<Argument2>(rawCommand, 1),
+                ParseArgument<Argument3>(rawCommand, 2),
+                ParseArgument<Argument4>(rawCommand, 3),
+                ParseArgument<Argument5>(rawCommand, 4)
+                );
+        };
+    }
+
+    /// <summary>
+    /// Add a new command
+    /// </summary>
+    public void AddCommand<Argument1, Argument2, Argument3, Argument4, Argument5, Argument6>(
+        Command<Argument1, Argument2, Argument3, Argument4, Argument5, Argument6> command)
+        where Argument1 : IParsable<Argument1>
+        where Argument2 : IParsable<Argument2>
+        where Argument3 : IParsable<Argument3>
+        where Argument4 : IParsable<Argument4>
+        where Argument5 : IParsable<Argument5>
+        where Argument6 : IParsable<Argument6>
+    {
+        CommandsAsDescribable.Add(command);
+        CommandCallers[command.GetName()] = (rawCommand) =>
+        {
+            command.Action(
+                ParseArgument<Argument1>(rawCommand, 0),
+                ParseArgument<Argument2>(rawCommand, 1),
+                ParseArgument<Argument3>(rawCommand, 2),
+                ParseArgument<Argument4>(rawCommand, 3),
+                ParseArgument<Argument5>(rawCommand, 4),
+                ParseArgument<Argument6>(rawCommand, 4)
+                );
+        };
+    }
     #endregion
 
     private void WriteCommands()

@@ -6,6 +6,9 @@ namespace CAI;
 {
     None = 0,
     WriteCommandPrompt = 1,
-    WelcomeMessage = 2,
-    WelcomeAndCommandPrompt = WriteCommandPrompt | WelcomeMessage
+    CopyrightMessage,
+    WelcomeMessage = 4,
+    CAIName = 8,
+    WelcomeAndCommandPrompt = WriteCommandPrompt | WelcomeMessage,
+    Full = WriteCommandPrompt | WelcomeMessage | CopyrightMessage | CAIName
 }

@@ -16,7 +16,7 @@ interface.AddCommand(new Command("command_name", "this is a command without para
 
 interface.AddCommand<int>(new Command("command_with_int_parameter", "this command expects an int parameter after command name", MethodWithIntArgument, "usage: \"command_with_int_parameter 42\""));
 ```
-Now commands support up to 4 various parameters. Each parameters implements IParsable.<br>
+Now commands support up to 6 various parameters. Each parameters implements IParsable.<br>
 In the command constructor, the command handler method is assigned. It must have the same number of parameters and the same types as those specified in the command generics
 
 To start interface, run AppInterface.Start() method:
@@ -46,12 +46,14 @@ CAI supports several styles:
 * WriteCommandPromt -- only command prompt
 * WelcomeMessage -- only welcome message
 * WelcomeAndCommandPrompt -- both command prompt and welcome message
-
+* CopyrightMessage -- Spectre.Console copyright
+* CAINAme -- show CAI name at start
+* Full -- standard CAI style. Contains everything
 this way you can make clear interface without welcome message or blue command prompt:
 ```cs
             AppInterface clearInterface = new("clear interface", isCatchExceptions: true, style: InterfaceStyles.None);
 ```
-"style" parameter isn`t required, it is set to Styles.WelcomeAndCommandPrompt by default.
+"style" parameter isn`t required, it is set to Styles.Full by default.
 Styles are presented enum with Flags attribute, so you can actually use WelcomeMessage | WriteCommandPromt instead of WelcomeAndCommandPrompt1.
 
 ## Native AOT:

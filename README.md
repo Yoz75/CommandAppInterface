@@ -42,8 +42,8 @@ You can run one CAI inside other. In this case when you type quit, you will exit
 
 ## Styles
 CAI supports several styles:
-* None -- no welcom message and no command prompt
-* WriteCommandPromt -- only command prompt
+* None -- no welcome message and no command prompt
+* WriteCommandPrompt -- only command prompt
 * WelcomeMessage -- only welcome message
 * WelcomeAndCommandPrompt -- both command prompt and welcome message
 * CopyrightMessage -- Spectre.Console copyright

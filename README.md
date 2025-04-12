@@ -47,7 +47,9 @@ You can run one CAI inside other. In this case when you type quit, you will exit
 ![изображение](https://github.com/user-attachments/assets/d8e47820-c742-4595-a31e-b49052516191)
 
 ## Logging
-CAI can log your string message, or any Spectre.Console.Rendering.IRenderable:
+CAI can log your string message, or any Spectre.Console.Rendering.IRenderable:<br>
+![изображение](https://github.com/user-attachments/assets/3d058d7e-bd5d-4dd2-97b4-7d9c4d3a52cb)
+
 
 ## Styles
 CAI supports several styles:

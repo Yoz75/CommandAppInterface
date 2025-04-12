@@ -17,7 +17,12 @@ interface.AddCommand(new Command("command_name", "this is a command without para
 interface.AddCommand<int>(new Command("command_with_int_parameter", "this command expects an int parameter after command name", MethodWithIntArgument, "usage: \"command_with_int_parameter 42\""));
 ```
 Now commands support up to 6 various parameters. Each parameters implements IParsable.<br>
-In the command constructor, the command handler method is assigned. It must have the same number of parameters and the same types as those specified in the command generics
+In the command constructor, the command handler method is assigned. It must have the same number of parameters and the same types as those specified in the command generics<br>
+
+CAI supports commands with variable parameters count:
+```cs
+interface.AddVariableArgsCommand<double>("command_with_many_double_parameters". "this command expects any count of doubles", DoSomeDealWithDoubleArray, "usage: \"command_with_many_double_parameters num1 num2 ... numN\"")
+```
 
 To start interface, run AppInterface.Start() method:
 ```cs
@@ -30,6 +35,7 @@ AppInterface interface = new(caiName: "example", isCatchExceptions: true);
 
 interface.AddCommand(new Command("command_name", "this is a command without parameters", DoSomeDealMethod, "this is text about how to use this command);
 interface.AddCommand<int>(new Command("command_with_int_parameter", "this command expects an int parameter after command name", MethodWithIntArgument, "usage: \"command_with_int_parameter 42\""));
+interface.AddVariableArgsCommand<double>("command_with_many_double_parameters". "this command expects any count of doubles", DoSomeDealWithDoubleArray, "usage: \"command_with_many_double_parameters num1 num2 ... numN\"")
 
 interface.Start();
 ...
@@ -39,6 +45,9 @@ Also CAI contains built-in commands:
 
 You can run one CAI inside other. In this case when you type quit, you will exit from internal CAI and continue working in external CAI:
 ![изображение](https://github.com/user-attachments/assets/d8e47820-c742-4595-a31e-b49052516191)
+
+## Logging
+CAI can log your string message, or any Spectre.Console.Rendering.IRenderable:
 
 ## Styles
 CAI supports several styles:

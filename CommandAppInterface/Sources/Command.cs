@@ -324,3 +324,47 @@ public class Command<Argument1, Argument2, Argument3, Argument4, Argument5, Argu
         return Usage;
     }
 }
+
+/// <summary>
+/// User command to the app interface
+/// </summary>
+/// /// <typeparam name="Argument">the type of array of arguments</typeparam>
+
+public class VariableArgsCommand<Argument> : IDescribable
+{
+    private string Name, Description, Usage;
+
+    /// <summary>
+    /// Action that app interface execute when receive this command
+    /// </summary>
+    public Action<Argument[]> Action
+    {
+        get;
+        private set;
+    }
+
+    /// <param name="name"></param>
+    /// <param name="description"></param>
+    /// <param name="action">Action that app interface execute when receive this command</param>
+    public VariableArgsCommand(string name, string description, Action<Argument[]> action, string? usage = null)
+    {
+        Name = name;
+        Description = description;
+        Action = action;
+        Usage = usage;
+    }
+
+    public string GetName()
+    {
+        return Name;
+    }
+    public string GetDescription()
+    {
+        return Description;
+    }
+
+    public string GetUsage()
+    {
+        return Usage;
+    }
+}

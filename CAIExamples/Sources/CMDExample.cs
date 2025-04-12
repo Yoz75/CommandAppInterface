@@ -16,6 +16,14 @@ class CMDExample : IExample
         cmdInterface.AddCommand<string>(new Command<string>("cd", "change directory", ChangeDirectory, "\"cd [relative path/full path/..]\""));
         cmdInterface.AddCommand(new Command("list", "list files and directories inside current", ListInsideCurrent, "\"list\""));
         cmdInterface.AddCommand<string>(new Command<string>("mkdir", "make a new directory", MakeDirectory, "\"mkdir \"[name]\"\""));
+        cmdInterface.AddCommand(new Command("hello", "write hello table", () => 
+        {
+            cmdInterface.WriteInfo(new Table().Title("hello").AddColumns("foo", "bar").AddRow("foo", "bar"));
+            }, "\"hello\""));
+        cmdInterface.AddCommand(new Command("bark", "bark! bark!", () => 
+        {
+            cmdInterface.WriteInfo("bark!", "IMPORTNT MESSG!!!!");
+            }));
 
         cmdInterface.Start();
     }

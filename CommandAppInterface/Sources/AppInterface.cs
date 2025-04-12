@@ -16,7 +16,7 @@ public class AppInterface
     private Dictionary<string, Action<string>> CommandCallers = new();
 
     //Yeah, I use build number as patch version😎😎😎
-    private readonly Version CAIVersion = new(1, 0, 1);
+    private readonly Version CAIVersion = new(1, 3, 0);
 
     private bool IsEnded = false;
 
@@ -144,6 +144,16 @@ public class AppInterface
         IsEnded = true;
     }
 
+    public void WriteInfo(string message, string prompt = "Info:")
+    {
+        AnsiConsole.MarkupLine($"[green]{prompt}:[/]\n{message}");
+    }
+
+    public void WriteInfo(Spectre.Console.Rendering.IRenderable renderable)
+    {
+        AnsiConsole.Write(renderable);
+    }
+
     #region AddCommand
     /// <summary>
     /// Add a new command, you can also rewrite existing and built-in commands 
@@ -163,6 +173,18 @@ public class AppInterface
         CommandCallers[command.GetName()] = (rawCommand) =>
         {
             command.Action(ParseArgument<Argument1>(rawCommand, 0));
+        };
+    }
+
+    /// <summary>
+    /// Add a new command
+    /// </summary>
+    public void AddVariableArgsCommand<Argument>(VariableArgsCommand<Argument> command) where Argument : IParsable<Argument>
+    {
+        CommandsAsDescribable.Add(command);
+        CommandCallers[command.GetName()] = (rawCommand) =>
+        {
+            command.Action(ParseArguments<Argument>(rawCommand));
         };
     }
 
@@ -332,6 +354,50 @@ public class AppInterface
         catch
         {
             throw new ArgumentException($"Could not parse argument {argumentIndex} of command {rawCommand}!");
+        }
+    }
+
+    private T[] ParseArguments<T>(string rawCommand) where T : IParsable<T>
+    {
+        try
+        {
+            List<string> substrings = new();
+
+            StringBuilder sb = new();
+            bool isAppendingRawString = false;
+            foreach(var @char in rawCommand)
+            {
+                if(@char == '\"')
+                {
+                    isAppendingRawString = !isAppendingRawString;
+                    continue;
+                }
+
+                if(!isAppendingRawString && @char == ' ')
+                {
+                    substrings.Add(sb.ToString());
+                    sb.Clear();
+                    continue;
+                }
+                sb.Append(@char);
+            }
+
+            substrings.Add(sb.ToString());
+            sb.Clear();
+
+            //first substring is command name
+            T[] result = new T[substrings.Count - 1];
+
+            for(int i = 0; i < result.Length; i++)
+            {
+                result[i] = T.Parse(substrings[i + 1], null);
+            }
+
+            return result;
+        }
+        catch
+        {
+            throw new ArgumentException($"Could not parse arguments of command {rawCommand}!");
         }
     }
 }

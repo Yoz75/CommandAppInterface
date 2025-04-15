@@ -144,7 +144,7 @@ public class AppInterface
         IsEnded = true;
     }
 
-    public void WriteInfo(string message, string prompt = "Info:")
+    public void WriteInfo(string message, string prompt = "Info")
     {
         AnsiConsole.MarkupLine($"[green]{prompt}:[/]\n{message}");
     }

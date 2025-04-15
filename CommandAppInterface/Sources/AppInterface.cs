@@ -23,7 +23,7 @@ public class AppInterface
     #region String Constants
     private const string SpectreConsoleCopyright =
         "[aqua]CAI uses Spectre.Console: Copyright (c) 2020 Patrik Svensson, Phil Scott, Nils Andresen[/]";
-    private const string UnknownCommandErrorMessage = "[red]Unknown command! Type help fore more info![/]\n";
+    private const string UnknownCommandErrorMessage = "[red]Unknown command! Type help for more info![/]\n";
     private const string PanicMessage = "[red]Panic! App has thrown an exception:[/]\n";
     private const string PanicPrompt = "[underline red]Panic![/]\n[grey]Something went REALLY wrong! Continue work or exit?[/]";
     private const string WriteNextCommandMessage = "[dodgerblue1]Write next command:[/]";

@@ -16,7 +16,7 @@ public class AppInterface
     private Dictionary<string, Action<string>> CommandCallers = new();
 
     //Yeah, I use build number as patch version😎😎😎
-    private readonly Version CAIVersion = new(1, 3, 0);
+    private readonly Version CAIVersion = new(1, 3, 1);
 
     private bool IsEnded = false;
 
@@ -146,7 +146,7 @@ public class AppInterface
 
     public void WriteInfo(string message, string prompt = "Info")
     {
-        AnsiConsole.MarkupLine($"[green]{prompt}:[/]\n{message}");
+        AnsiConsole.MarkupLineInterpolated($"[green]{prompt}:[/]\n{message}");
     }
 
     public void WriteInfo(Spectre.Console.Rendering.IRenderable renderable)

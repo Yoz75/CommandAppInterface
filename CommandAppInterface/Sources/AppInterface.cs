@@ -31,8 +31,6 @@ public class AppInterface
 
     private bool IsCatchExceptions;
 
-    private string Name;
-
     private const InterfaceStyles StandardStyle = InterfaceStyles.Full;
 
     private InterfaceStyles Style;
@@ -59,6 +57,12 @@ public class AppInterface
                 AnsiConsole.WriteLine(Name);
             }
         }, "\"name\""));
+    }
+
+    public string Name
+    {
+        get; 
+        private set;
     }
 
     public void Start()

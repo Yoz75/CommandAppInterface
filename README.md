@@ -68,4 +68,24 @@ this way you can make clear interface without welcome message or blue command pr
 Styles are presented enum with Flags attribute, so you can actually use WelcomeMessage | WriteCommandPromt instead of WelcomeAndCommandPrompt1.
 
 ## Native AOT:
+CAI namespace itself supports Native AOT, also
 CAI uses [Spectre.Console](https://github.com/spectreconsole/spectre.console/)  (Not Spectre.Console.Cli!!!), as stated in https://spectreconsole.net/best-practices, Spectre.Console supports Native AOT.
+But child namespaces doesn't have to support it.
+
+## Reflection:
+**WARNING: THIS NAMESPACE DOESN'T GUARANTEE NATIVE AOT SUPPORT!**<br>
+using namespace CAI.Reflection, you can add commands using attributes　（see CAI.Examples.ReflectionExample):<br>
+```cs
+    [Command("reflection", "echo", "Echoes the input text", "echo [text]")]
+    public static void Echo(string value)
+    {
+        AnsiConsole.WriteLine($"{value}");
+    }
+
+    [Command("reflection", "bar", "say bar", "bar")]
+    public static void Bar()
+    {
+        AnsiConsole.WriteLine("bar");
+    }
+```
+By default, app interface doesn't load that commands, you have to call extension method AppInterface.LoadAttributedCommands()
